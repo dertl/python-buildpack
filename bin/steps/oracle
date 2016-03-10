@@ -10,8 +10,8 @@
 # This script is invoked by [`bin/compile`](/).
 
 # The location of the pre-compiled and super-amazing oracle db interface.
-VENDORED_ORACLE_BASIC="https://beg-inno-cloud/static/instantclient-basic-linux.x64-12.1.0.2.0.zip"
-VENDORED_ORACLE_SDK="https://beg-inno-cloud/static/instantclient-sdk-linux.x64-12.1.0.2.0.zip"
+VENDORED_ORACLE_BASIC="https://beg-inno-cloud.de/static/instantclient-basic-linux.x64-12.1.0.2.0.zip"
+VENDORED_ORACLE_SDK="https://beg-inno-cloud.de/static/instantclient-sdk-linux.x64-12.1.0.2.0.zip"
 
 # Syntax sugar.
 #source $BIN_DIR/utils
@@ -24,15 +24,16 @@ puts-step  "-----> Hello ORACLE? Where are you?"
 
   # Install dependencies with Pip.
   puts-step  "-----> Noticed ORACLE. Bootstrapping ORACLE."
-  cd $ROOT_DIR/vendor
-  curl -o temp.zip $VENDORED_ORACLE_SDK 
-  unzip temp.zip $ROOT_DIR/vendor 
-  rm temp.zip
-  curl -o temp.zip $VENDORED_ORACLE_BASIC
-  unzip $ROOT_DIR/vendor
-  rm temp.zip
+  mkdir -p .heroku/vendor
+  
+  curl -o .heroku/vendor/temp.zip $VENDORED_ORACLE_SDK 
+  unzip -d $(pwd) .heroku/vendor/temp.zip 
+  rm .heroku/vendor/temp.zip
+  curl -o .heroku/vendor/temp.zip $VENDORED_ORACLE_BASIC
+  unzip -d $(pwd) .heroku/vendor/temp.zip
+  rm .heroku/vendor/temp.zip
 
-  export ORACLE_HOME= $ROOT_DIR/vendor/instantclient_12_1
+  export ORACLE_HOME=$(pwd)/instantclient_12_1
   cd $ORACLE_HOME
   
   ln -s libclntsh.so.12.1   libclntsh.so  #the version number on your .so file might be different  
