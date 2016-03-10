@@ -28,15 +28,15 @@ puts-step  "-----> Hello ORACLE? Where are you?"
   
   curl -o /app/.heroku/vendor/temp.zip $VENDORED_ORACLE_SDK 
   #unzip -d $(pwd) .heroku/vendor/temp.zip 
-  unzip .heroku/vendor/temp.zip -d .heroku/vendor/ 
+  unzip .heroku/vendor/temp.zip 
   rm .heroku/vendor/temp.zip
   curl -o /app/.heroku/vendor/temp.zip $VENDORED_ORACLE_BASIC
-  unzip .heroku/vendor/temp.zip -d .heroku/vendor/ 
+  unzip .heroku/vendor/temp.zip  
   rm .heroku/vendor/temp.zip
 
   #export ORACLE_HOME=$(pwd)/instantclient_12_1
   export ORACLE_HOME=/app/.heroku/lib
-  mv -v /app/.heroku/vendor/instantclient_12_1/* /app/.heroku/lib
+  mv -v /app/instantclient_12_1/* /app/.heroku/lib >&2 
     
   #ln -s $ORACLE_HOME/libclntsh.so.12.1 /app/.heroku/vendor/lib/libclntsh.so.12.1  #the version number on your .so file might be different  
  # ln -s $ORACLE_HOME/libclntsh.so.12.1 /app/.heroku/vendor/lib/libclntsh.so  #the version number on your .so file might be different  
