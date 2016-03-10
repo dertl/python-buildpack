@@ -36,6 +36,7 @@ puts-step  "-----> Hello ORACLE? Where are you?"
 
   #export ORACLE_HOME=$(pwd)/instantclient_12_1
   export ORACLE_HOME=/app/.heroku/lib
+  mkdir -p /app/.heroku/lib
   mv -v /app/instantclient_12_1/* /app/.heroku/lib > file.txt
   puts-step $(cat file.txt)
   
