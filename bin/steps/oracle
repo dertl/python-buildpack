@@ -24,19 +24,19 @@ puts-step  "-----> Hello ORACLE? Where are you?"
 
   # Install dependencies with Pip.
   puts-step  "-----> Noticed ORACLE. Bootstrapping ORACLE."
-  cd $(ROOT_DIR)/vendor
-  curl -o temp.zip $(VENDORED_ORACLE_SDK) 
-  unzip temp.zip $(ROOT_DIR)/vendor 
+  cd $ROOT_DIR/vendor
+  curl -o temp.zip $VENDORED_ORACLE_SDK 
+  unzip temp.zip $ROOT_DIR/vendor 
   rm temp.zip
-  curl -o temp.zip $(VENDORED_ORACLE_BASIC) 
-  unzip $(ROOT_DIR)/vendor
+  curl -o temp.zip $VENDORED_ORACLE_BASIC
+  unzip $ROOT_DIR/vendor
   rm temp.zip
 
-  export ORACLE_HOME= $(ROOT_DIR)/vendor/instantclient_12_1
-  cd $(ORACLE_HOME)
+  export ORACLE_HOME= $ROOT_DIR/vendor/instantclient_12_1
+  cd $ORACLE_HOME
   
   ln -s libclntsh.so.12.1   libclntsh.so  #the version number on your .so file might be different  
-  export LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(ORACLE_HOME)
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
   ldconfig
   
 #fi
