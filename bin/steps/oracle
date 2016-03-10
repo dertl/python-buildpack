@@ -13,6 +13,7 @@
 VENDORED_ORACLE_BASIC="https://beg-inno-cloud.de/static/instantclient-basic-linux.x64-12.1.0.2.0.zip"
 VENDORED_ORACLE_SDK="https://beg-inno-cloud.de/static/instantclient-sdk-linux.x64-12.1.0.2.0.zip"
 
+
 # Syntax sugar.
 #source $BIN_DIR/utils
 
@@ -36,7 +37,13 @@ puts-step  "-----> Hello ORACLE? Where are you?"
   export ORACLE_HOME=$(pwd)/instantclient_12_1
     
   ln -s $ORACLE_HOME/libclntsh.so.12.1   $ORACLE_HOME/libclntsh.so  #the version number on your .so file might be different  
-  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
+
+  
+  #PKG_CONFIG_PATH="/app/.heroku/vendor/lib/pkgconfig:$PKG_CONFIG_PATH"
+  LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$ORACLE_HOME"
+  LIBRARY_PATH="$LIBRARY_PATH:$ORACLE_HOME"
+  puts-step LD_LIBRARY_PATH
+  puts-step LIBRARY_PATH
   #ldconfig
   
 #fi
