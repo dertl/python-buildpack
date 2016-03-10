@@ -36,7 +36,10 @@ puts-step  "-----> Hello ORACLE? Where are you?"
 
   #export ORACLE_HOME=$(pwd)/instantclient_12_1
   export ORACLE_HOME=/app/.heroku/lib
-  mv -v /app/instantclient_12_1/* /app/.heroku/lib >&2 
+  mv -v /app/instantclient_12_1/* /app/.heroku/lib > file.txt
+  puts-step $(cat file.txt)
+  
+  echo "finished ORACLE"
     
   #ln -s $ORACLE_HOME/libclntsh.so.12.1 /app/.heroku/vendor/lib/libclntsh.so.12.1  #the version number on your .so file might be different  
  # ln -s $ORACLE_HOME/libclntsh.so.12.1 /app/.heroku/vendor/lib/libclntsh.so  #the version number on your .so file might be different  
