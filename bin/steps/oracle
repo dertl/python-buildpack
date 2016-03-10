@@ -20,7 +20,7 @@ bpwatch start oracle_install
 puts-step  "-----> Hello ORACLE? Where are you?"
 
 # If ORACLE exists within requirements, use vendored ORACLE.
-if (pip-grep -s requirements.txt cx_Oracle &> /dev/null) then
+#if (pip-grep -s requirements.txt cx_Oracle &> /dev/null) then
 
   # Install dependencies with Pip.
   puts-step  "-----> Noticed ORACLE. Bootstrapping ORACLE."
@@ -39,6 +39,6 @@ if (pip-grep -s requirements.txt cx_Oracle &> /dev/null) then
   export LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(ORACLE_HOME)
   ldconfig
   
-fi
+#fi
 
 bpwatch stop oracle_install
