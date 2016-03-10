@@ -36,6 +36,7 @@ puts-step  "-----> Hello ORACLE? Where are you?"
   rm .heroku/vendor/temp.zip
 
   mv -v /app/instantclient_12_1/* /app/.heroku/lib 
+  ln -s /app/.heroku/lib/libclntsh.so.12.1 /app/.heroku/lib/libclntsh.so
   echo "finished ORACLE"
   #export ORACLE_HOME=$(pwd)/instantclient_12_1
   export ORACLE_HOME=/app/.heroku/lib
