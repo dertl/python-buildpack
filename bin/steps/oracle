@@ -24,15 +24,14 @@ puts-step  "-----> Hello ORACLE? Where are you?"
 #if (pip-grep -s requirements.txt cx_Oracle &> /dev/null) then
 
   # Install dependencies with Pip.
-  puts-step  "-----> Noticed ORACLE. Bootstrapping ORACLE."
   mkdir -p .heroku/vendor
   
   curl -o /app/.heroku/vendor/temp.zip $VENDORED_ORACLE_SDK 
   #unzip -d $(pwd) .heroku/vendor/temp.zip 
-  unzip -d .heroku/vendor/ .heroku/vendor/temp.zip
+  unzip .heroku/vendor/temp.zip -d .heroku/vendor/ 
   rm .heroku/vendor/temp.zip
   curl -o /app/.heroku/vendor/temp.zip $VENDORED_ORACLE_BASIC
-  unzip -d .heroku/vendor/ .heroku/vendor/temp.zip 
+  unzip .heroku/vendor/temp.zip -d .heroku/vendor/ 
   rm .heroku/vendor/temp.zip
 
   #export ORACLE_HOME=$(pwd)/instantclient_12_1
