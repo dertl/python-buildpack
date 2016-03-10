@@ -25,22 +25,22 @@ puts-step  "-----> Hello ORACLE? Where are you?"
 
   # Install dependencies with Pip.
   mkdir -p .heroku/vendor
+  mkdir -p /app/.heroku/lib
   
   curl -o /app/.heroku/vendor/temp.zip $VENDORED_ORACLE_SDK 
   #unzip -d $(pwd) .heroku/vendor/temp.zip 
-  unzip .heroku/vendor/temp.zip 
+  unzip -d .heroku/vendor/temp.zip 
   rm .heroku/vendor/temp.zip
   curl -o /app/.heroku/vendor/temp.zip $VENDORED_ORACLE_BASIC
-  unzip .heroku/vendor/temp.zip  
+  unzip -d .heroku/vendor/temp.zip  
   rm .heroku/vendor/temp.zip
 
+  mv -v /app/instantclient_12_1/* /app/.heroku/lib 
+  echo "finished ORACLE"
   #export ORACLE_HOME=$(pwd)/instantclient_12_1
   export ORACLE_HOME=/app/.heroku/lib
-  mkdir -p /app/.heroku/lib
-  mv -v /app/instantclient_12_1/* /app/.heroku/lib > file.txt
-  puts-step $(cat file.txt)
   
-  echo "finished ORACLE"
+
     
   #ln -s $ORACLE_HOME/libclntsh.so.12.1 /app/.heroku/vendor/lib/libclntsh.so.12.1  #the version number on your .so file might be different  
  # ln -s $ORACLE_HOME/libclntsh.so.12.1 /app/.heroku/vendor/lib/libclntsh.so  #the version number on your .so file might be different  
