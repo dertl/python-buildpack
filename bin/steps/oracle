@@ -34,9 +34,8 @@ puts-step  "-----> Hello ORACLE? Where are you?"
   rm .heroku/vendor/temp.zip
 
   export ORACLE_HOME=$(pwd)/instantclient_12_1
-  cd $ORACLE_HOME
-  
-  ln -s libclntsh.so.12.1   libclntsh.so  #the version number on your .so file might be different  
+    
+  ln -s $ORACLE_HOME/libclntsh.so.12.1   $ORACLE_HOME/libclntsh.so  #the version number on your .so file might be different  
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ORACLE_HOME
   #ldconfig
   
