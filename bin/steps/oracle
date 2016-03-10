@@ -17,11 +17,13 @@ VENDORED_ORACLE_SDK="https://beg-inno-cloud/static/instantclient-sdk-linux.x64-1
 #source $BIN_DIR/utils
 
 bpwatch start oracle_install
+puts-step  "-----> Hello ORACLE? Where are you?"
 
 # If ORACLE exists within requirements, use vendored ORACLE.
 if (pip-grep -s requirements.txt cx_Oracle &> /dev/null) then
 
-  echo "-----> Noticed ORACLE. Bootstrapping ORACLE."
+  # Install dependencies with Pip.
+  puts-step  "-----> Noticed ORACLE. Bootstrapping ORACLE."
   cd $(ROOT_DIR)/vendor
   curl -o temp.zip $(VENDORED_ORACLE_SDK) 
   unzip temp.zip $(ROOT_DIR)/vendor 
