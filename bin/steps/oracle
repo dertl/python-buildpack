@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# This script serves as the Oracle build step of the
+# [**Python Buildpack**](https://github.com/heroku/heroku-buildpack-python)
+# compiler.
+#
+# A [buildpack](http://devcenter.heroku.com/articles/buildpacks) is an
+# adapter between a Python application and Heroku's runtime.
+#
+# This script is invoked by [`bin/compile`](/).
+
+# The location of the pre-compiled and super-amazing oracle db interface.
+VENDORED_ORACLE_BASIC="https://beg-inno-cloud/static/instantclient-basic-linux.x64-12.1.0.2.0.zip"
+VENDORED_ORACLE_SDK="https://beg-inno-cloud/static/instantclient-sdk-linux.x64-12.1.0.2.0.zip"
+
+# Syntax sugar.
+#source $BIN_DIR/utils
+
+bpwatch start oracle_install
+
+# If ORACLE exists within requirements, use vendored ORACLE.
+if (pip-grep -s requirements.txt cx_Oracle &> /dev/null) then
+
+  echo "-----> Noticed ORACLE. Bootstrapping ORACLE."
+  cd $(ROOT_DIR)/vendor
+  curl -o temp.zip $(VENDORED_ORACLE_SDK) 
+  unzip temp.zip $(ROOT_DIR)/vendor 
+  rm temp.zip
+  curl -o temp.zip $(VENDORED_ORACLE_BASIC) 
+  unzip $(ROOT_DIR)/vendor
+  rm temp.zip
+
+  export ORACLE_HOME= $(ROOT_DIR)/vendor/instantclient_12_1
+  cd $(ORACLE_HOME)
+  
+  ln -s libclntsh.so.12.1   libclntsh.so  #the version number on your .so file might be different  
+  export LD_LIBRARY_PATH=$(LD_LIBRARY_PATH):$(ORACLE_HOME)
+  ldconfig
+  
+fi
+
+bpwatch stop oracle_install
